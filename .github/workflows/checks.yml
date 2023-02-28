@@ -44,18 +44,15 @@ jobs:
           - "3.10"
     steps:
       - uses: actions/checkout@v3
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: "poetry"
       - name: Install dependencies
-        run: poetry install --with dev
+        run: pip install .
       - name: Pytest
-        run: poetry run pytest -v --cov=transformer_lens/ --cov-report=term-missing transformer_lens/tests/
+        run: pytest -v --cov=transformer_lens/ --cov-report=term-missing transformer_lens/tests/
       # - name: Type check
       #   run: poetry run mypy transformer_lens
-      - name: Build check
-        run: poetry build
+      # - name: Build check
+        # run: poetry build
